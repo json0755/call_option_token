@@ -1,0 +1,178 @@
+No files changed, compilation skipped
+Traces:
+  [2072246] SimpleDemoScript::run()
+    ├─ [0] console::log("\n========== 期权合约核心流程演示 ==========") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("\n步骤1: 部署期权合约") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] VM::startPrank(0x0000000000000000000000000000000000001111)
+    │   └─ ← [Return]
+    ├─ [1824682] → new CallOptionToken@0xfF9FA8f363F78f9F5658971A4F357ad95130D1F5
+    │   ├─ emit OwnershipTransferred(previousOwner: 0x0000000000000000000000000000000000000000, newOwner: 0x0000000000000000000000000000000000001111)
+    │   └─ ← [Return] 8645 bytes of code
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    ├─ [0] console::log("✓ 合约部署成功") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("  合约地址:", CallOptionToken: [0xfF9FA8f363F78f9F5658971A4F357ad95130D1F5]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [370] CallOptionToken::strikePrice() [staticcall]
+    │   └─ ← [Return] 2000000000000000000 [2e18]
+    ├─ [0] console::log("  行权价格:", 2, "ETH") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("\n步骤2: 发行期权") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] VM::deal(0x0000000000000000000000000000000000001111, 100000000000000000000 [1e20])
+    │   └─ ← [Return]
+    ├─ [0] VM::startPrank(0x0000000000000000000000000000000000001111)
+    │   └─ ← [Return]
+    ├─ [0] console::log("  发行人准备存入:", 5, "ETH") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("  发行人ETH余额(发行前):", 100, "ETH") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [74243] CallOptionToken::issueOptions{value: 5000000000000000000}(5000000000000000000 [5e18])
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x0000000000000000000000000000000000001111, value: 5000000000000000000 [5e18])
+    │   ├─ emit OptionsIssued(issuer: 0x0000000000000000000000000000000000001111, underlyingAmount: 5000000000000000000 [5e18], optionTokens: 5000000000000000000 [5e18])
+    │   └─ ← [Stop]
+    ├─ [0] console::log("✓ 期权发行成功") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [917] CallOptionToken::balanceOf(0x0000000000000000000000000000000000001111) [staticcall]
+    │   └─ ← [Return] 5000000000000000000 [5e18]
+    ├─ [0] console::log("  发行的期权数量:", 5, "个") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("  合约ETH余额:", 5, "ETH") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("  发行人ETH余额(发行后):", 95, "ETH") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    ├─ [0] console::log("\n步骤3: 转让期权") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] VM::startPrank(0x0000000000000000000000000000000000001111)
+    │   └─ ← [Return]
+    ├─ [25768] CallOptionToken::transfer(0x0000000000000000000000000000000000002222, 2000000000000000000 [2e18])
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000001111, to: 0x0000000000000000000000000000000000002222, value: 2000000000000000000 [2e18])
+    │   └─ ← [Return] true
+    ├─ [0] console::log("✓ 期权转让成功") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("  转让数量:", 2, "个") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [917] CallOptionToken::balanceOf(0x0000000000000000000000000000000000002222) [staticcall]
+    │   └─ ← [Return] 2000000000000000000 [2e18]
+    ├─ [0] console::log("  买家期权余额:", 2, "个") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [917] CallOptionToken::balanceOf(0x0000000000000000000000000000000000001111) [staticcall]
+    │   └─ ← [Return] 3000000000000000000 [3e18]
+    ├─ [0] console::log("  发行人剩余期权:", 3, "个") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    ├─ [0] console::log("\n步骤4: 行权过程") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [370] CallOptionToken::expirationDate() [staticcall]
+    │   └─ ← [Return] 2592001 [2.592e6]
+    ├─ [0] VM::warp(2509201 [2.509e6])
+    │   └─ ← [Return]
+    ├─ [699] CallOptionToken::isExercisePeriod() [staticcall]
+    │   └─ ← [Return] true
+    ├─ [0] console::log("  当前是否在行权期:", true) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] VM::deal(0x0000000000000000000000000000000000002222, 10000000000000000000 [1e19])
+    │   └─ ← [Return]
+    ├─ [0] VM::startPrank(0x0000000000000000000000000000000000002222)
+    │   └─ ← [Return]
+    ├─ [1043] CallOptionToken::calculateExerciseCost(1000000000000000000 [1e18]) [staticcall]
+    │   └─ ← [Return] 2000000000000000000 [2e18]
+    ├─ [0] console::log("\n行权前状态:") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [917] CallOptionToken::balanceOf(0x0000000000000000000000000000000000002222) [staticcall]
+    │   └─ ← [Return] 2000000000000000000 [2e18]
+    ├─ [0] console::log("  买家期权余额:", 2, "个") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("  买家ETH余额:", 10, "ETH") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("  合约ETH余额:", 5, "ETH") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("  准备行权数量:", 1, "个") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("  需要支付:", 2, "ETH") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [14882] CallOptionToken::exercise{value: 2000000000000000000}(1000000000000000000 [1e18])
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000002222, to: 0x0000000000000000000000000000000000000000, value: 1000000000000000000 [1e18])
+    │   ├─ [0] 0x0000000000000000000000000000000000002222::fallback{value: 1000000000000000000}()
+    │   │   └─ ← [Stop]
+    │   ├─ emit OptionsExercised(exerciser: 0x0000000000000000000000000000000000002222, optionTokens: 1000000000000000000 [1e18], underlyingReceived: 1000000000000000000 [1e18], paymentMade: 2000000000000000000 [2e18])
+    │   └─ ← [Stop]
+    ├─ [0] console::log("\n✓ 行权成功！") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("\n行权后状态:") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [917] CallOptionToken::balanceOf(0x0000000000000000000000000000000000002222) [staticcall]
+    │   └─ ← [Return] 1000000000000000000 [1e18]
+    ├─ [0] console::log("  买家期权余额:", 1, "个") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("  买家ETH余额:", 9, "ETH") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("  合约ETH余额:", 6, "ETH") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [522] CallOptionToken::totalSupply() [staticcall]
+    │   └─ ← [Return] 4000000000000000000 [4e18]
+    ├─ [0] console::log("  剩余期权供应量:", 4, "个") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [558] CallOptionToken::totalUnderlyingDeposited() [staticcall]
+    │   └─ ← [Return] 4000000000000000000 [4e18]
+    ├─ [0] console::log("  剩余标的资产:", 4, "ETH") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    ├─ [0] console::log("\n========== 演示完成 ==========") [staticcall]
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+
+Script ran successfully.
+Gas used: 2093310
+
+== Logs ==
+  
+========== 期权合约核心流程演示 ==========
+  
+步骤1: 部署期权合约
+  ✓ 合约部署成功
+    合约地址: 0xfF9FA8f363F78f9F5658971A4F357ad95130D1F5
+    行权价格: 2 ETH
+  
+步骤2: 发行期权
+    发行人准备存入: 5 ETH
+    发行人ETH余额(发行前): 100 ETH
+  ✓ 期权发行成功
+    发行的期权数量: 5 个
+    合约ETH余额: 5 ETH
+    发行人ETH余额(发行后): 95 ETH
+  
+步骤3: 转让期权
+  ✓ 期权转让成功
+    转让数量: 2 个
+    买家期权余额: 2 个
+    发行人剩余期权: 3 个
+  
+步骤4: 行权过程
+    当前是否在行权期: true
+  
+行权前状态:
+    买家期权余额: 2 个
+    买家ETH余额: 10 ETH
+    合约ETH余额: 5 ETH
+    准备行权数量: 1 个
+    需要支付: 2 ETH
+  
+✓ 行权成功！
+  
+行权后状态:
+    买家期权余额: 1 个
+    买家ETH余额: 9 ETH
+    合约ETH余额: 6 ETH
+    剩余期权供应量: 4 个
+    剩余标的资产: 4 ETH
+  
+========== 演示完成 ==========
